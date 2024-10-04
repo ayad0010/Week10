@@ -12,6 +12,7 @@
 <script>
     const spec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "title":"Number of visitors by month in 2023",
   "data": {"url": "https://raw.githubusercontent.com/ayad0010/Week10/refs/heads/main/data.csv"},
   "layer": [{
     "params": [{
@@ -55,6 +56,26 @@
       },
       "color": {"value": "black"},
       "size": {"value": 3}
+    }
+  },{
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "dx": 150,
+      "dy": -170
+    },
+    "encoding": {
+      "x": {
+        "datum": 12,   
+        "type": "ordinal",
+        "title": "Month"
+      },
+      "y": {
+        "datum": 520,
+        "type": "quantitative"
+      },
+      "text": {"value": "Most visitors in December"},
+      "color": {"value": "black"}
     }
   }],
 
