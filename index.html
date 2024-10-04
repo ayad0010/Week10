@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+</head>
+<body>
+<div id="vis"/>
+
+<script>
+    const spec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/ayad0010/Week10/refs/heads/main/data.csv"},
+  "layer": [{
+    "params": [{
+      "name": "brush",
+      "select": {"type": "interval", "encodings": ["x"]}
+    }],
+    "mark": "bar",
+    "encoding": {
+      "color": {"value": "orange"},
+      "x": {
+        "timeUnit": "month",
+        "field": "date",
+        "type": "ordinal",
+        "title":"Month"
+      },
+      "y": {
+        "field": "visitors",
+        "type": "quantitative",
+        "title":"Number of visitors"
+      },
+      "opacity": {
+        "condition": {
+          "param": "brush", "value": 2
+        },
+        "value": 0.6
+      }
+    }
+  }, {
+    "transform": [{
+      "filter": {"param": "brush"}
+    }],
+    "mark": "rule",
+    "encoding": {
+      "y": {
+        "aggregate": "mean",
+        "field": "visitors",
+        "type": "quantitative"
+      },
+      "color": {"value": "black"},
+      "size": {"value": 3}
+    }
+  }]
+
+    "config":{}
+  };
+  vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+</script>
+
+</body>
+</html>
